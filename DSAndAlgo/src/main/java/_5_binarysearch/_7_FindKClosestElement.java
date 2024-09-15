@@ -10,6 +10,7 @@ public class _7_FindKClosestElement {
      The result should also be sorted in ascending order.
      */
 
+    // Sliding window solution
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
         // The sliding window is between 'mid' and 'mid' + k.
         int left = 0;
@@ -36,4 +37,6 @@ public class _7_FindKClosestElement {
         }
         return result;
     }
+
+
 }

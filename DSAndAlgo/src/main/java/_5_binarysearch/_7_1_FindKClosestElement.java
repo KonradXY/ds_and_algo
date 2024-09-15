@@ -1,10 +1,11 @@
-package practice;
+package _5_binarysearch;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Practice {
+public class _7_1_FindKClosestElement {
 
+    // TODO - CORRADO - this solution is not working
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
         if (x <= arr[0]) {
             return sublist(arr, 0, k);
@@ -13,10 +14,14 @@ public class Practice {
             return sublist(arr, arr.length - k, arr.length);
         }
 
-        int leftPivot = getLeftPosition(arr, 0, arr.length - 1, x);
+        int leftPivot = leftmostBinarySearch(arr, 0, arr.length - 1, x);
         int rightPivot = leftPivot + 1;
 
-        while (k >= 0) {
+        if (Math.abs(arr[leftPivot] - x) <= Math.abs(arr[rightPivot] - x)) {
+
+        }
+
+        while (k > 0) {
             if (leftPivot == 0) {
                 rightPivot++;
             } else if (rightPivot == arr.length - 1) {
@@ -30,7 +35,7 @@ public class Practice {
         }
 
         List<Integer> result = new ArrayList<>();
-        for (int i = leftPivot; i < rightPivot; i++) {
+        for (int i = leftPivot; i < rightPivot - 1; i++) {
             result.add(arr[i]);
         }
 
@@ -48,7 +53,7 @@ public class Practice {
         return sub;
     }
 
-    private static int getLeftPosition(int[] arr, int left, int right, int key) {
+    private static int leftmostBinarySearch(int[] arr, int left, int right, int key) {
         while (right - left > 1) {
             int mid = left + (right - left) / 2;
             if (arr[mid] >= key) {
@@ -59,18 +64,4 @@ public class Practice {
         }
         return right;
     }
-
-    private static int getRightPosition(int[] arr, int left, int right, int key) {
-        while (right - left > 1) {
-            int mid = left + (right - left) / 2;
-            if (arr[mid] <= key) {
-                left = mid;
-            } else {
-                right = mid;
-            }
-        }
-        return left;
-    }
-
-
 }
