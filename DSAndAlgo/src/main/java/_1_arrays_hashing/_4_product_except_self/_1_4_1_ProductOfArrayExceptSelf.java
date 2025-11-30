@@ -1,6 +1,6 @@
-package _1_arrays_hashing;
+package _1_arrays_hashing._4_product_except_self;
 
-public class _4_ProductOfArrayExceptSelf {
+public class _1_4_1_ProductOfArrayExceptSelf {
 
     /**
      * Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].

@@ -1,13 +1,14 @@
 package _1_arrays_hashing;
 
+import _1_arrays_hashing._4_product_except_self._1_4_1_ProductOfArrayExceptSelf;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
 
-public class _4_ProductOfArrayExceptSelfTest {
+public class _1_4_1_ProductOfArrayExceptSelfTest {
 
-    _4_ProductOfArrayExceptSelf test = new _4_ProductOfArrayExceptSelf();
+    _1_4_1_ProductOfArrayExceptSelf test = new _1_4_1_ProductOfArrayExceptSelf();
 
 
     @Test

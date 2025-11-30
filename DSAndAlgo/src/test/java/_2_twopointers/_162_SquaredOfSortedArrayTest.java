@@ -1,11 +1,12 @@
 package _2_twopointers;
 
+import _1_arrays_hashing._6_merge._1_6_2_SquaredOfSortedArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class _3_SquaredOfSortedArrayTest {
+public class _162_SquaredOfSortedArrayTest {
 
-    _3_SquaredOfSortedArray test = new _3_SquaredOfSortedArray();
+    _1_6_2_SquaredOfSortedArray test = new _1_6_2_SquaredOfSortedArray();
 
     @Test
     public void test() {

@@ -1,37 +1,71 @@
 package _2_twopointers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class _2_FindKClosestElement {
 
-    /**
-     Given a sorted integer array arr, two integers k and x, return the k closest integers to x in the array.
-     The result should also be sorted in ascending order.
-     */
-
-
-    // Approach:
-    // Using two pointers, we are going the 'start' and 'end' pointers towards each other,
-    // until only k elements between 'start' and 'end'.
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
-        int start = 0;
-        int end = arr.length - 1;
-        // Between the 'start' and 'end' pointers, inclusive, contains all the k integers that is closest to x.
-        while (end - start >= k) {
-            // Move 'start' to the right if 'end' is closer to x, or move 'end' to the left if 'start' is closer to x.
-            if (Math.abs(arr[start] - x) > Math.abs(arr[end] - x)) {
-                start++;
+        int left = 0;
+        int right = arr.length - k;
+
+        // Binary search for best left boundary
+        while (left < right) {
+            int idx = left + (right - left) / 2;
+
+            // Compare distances to x
+            if (x - arr[idx] > arr[idx + k] - x) {
+                left = idx + 1;
             } else {
-                end--;
+                right = idx;
             }
         }
 
-        // Input all the k closest integers into the result.
-        List<Integer> result = new ArrayList<>(k);
-        for (int i = start; i <= end; i++) {
+        // Build the result from final window
+        List<Integer> result = new ArrayList<>();
+        for (int i = left; i < left + k; i++) {
             result.add(arr[i]);
         }
+
         return result;
+    }
+
+    public List<Integer> findClosestElementsByExpansion(int[] arr, int k, int x) {
+        int n = arr.length;
+
+        // 1. Find insertion index for x (lower bound)
+        int right = Arrays.binarySearch(arr, x);
+        if (right < 0) right = -right - 1;
+        int left = right - 1;
+
+        // 2. Expand k times
+        List<Integer> leftList = new ArrayList<>();
+        List<Integer> rightList = new ArrayList<>();
+
+        while (k-- > 0) {
+            if (left < 0) {
+                rightList.add(arr[right++]);
+            } else if (right >= n) {
+                leftList.add(arr[left--]);
+            } else {
+                // Choose closer side; if tie, choose left (smaller number)
+                if (Math.abs(arr[left] - x) <= Math.abs(arr[right] - x)) {
+                    leftList.add(arr[left--]);
+                } else {
+                    rightList.add(arr[right++]);
+                }
+            }
+        }
+
+        // 3. Combine results without sorting
+        // Left list is in reverse order, so reverse it
+        Collections.reverse(leftList);
+
+        // final result = reversed left side + right side
+        leftList.addAll(rightList);
+
+        return leftList;
     }
 }

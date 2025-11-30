@@ -1,8 +1,33 @@
 package _5_binarysearch;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class _9_FaiCandySwap {
+
+    public int[] fairCandySwap(int[] A, int[] B) {
+        int sumA = 0, sumB = 0;
+
+        for (int a : A) sumA += a;
+        for (int b : B) sumB += b;
+
+        int delta = (sumB - sumA) / 2;
+
+        Set<Integer> setB = new HashSet<>();
+        for (int b : B) {
+            setB.add(b);
+        }
+
+        for (int x : A) {
+            int y = x + delta;
+            if (setB.contains(y)) {
+                return new int[] {x, y};
+            }
+        }
+
+        return new int[0]; // Should never reach here
+    }
 
     public int[] fairCandySwap(int[] aliceSizes, int[] bobSizes) {
         int sumAlice = 0, sumBob = 0;
