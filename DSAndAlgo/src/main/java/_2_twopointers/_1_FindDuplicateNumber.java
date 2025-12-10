@@ -12,22 +12,42 @@ public class _1_FindDuplicateNumber {
      */
 
     public int findDuplicate(int[] nums) {
+        // Phase 1: Detect cycle
         int slow = nums[0];
-        int fast = nums[0];
+        int fast = nums[nums[0]];
 
-        do {
+        while (slow != fast) {
             slow = nums[slow];
             fast = nums[nums[fast]];
+        }
 
-        } while (slow != fast);
+        // Phase 2: Find cycle entrance (duplicate number)
+        fast = 0;
 
-        fast = nums[0];
-        while(slow != fast) {
+        while (slow != fast) {
             slow = nums[slow];
             fast = nums[fast];
         }
 
         return slow;
+    }
+
+    public int findDuplicate2(int[] nums) {
+        int left = 1, right = nums.length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            int count = 0;
+            for (int num : nums) {
+                if (num <= mid) count++;
+            }
+
+            if (count > mid) right = mid;
+            else left = mid + 1;
+        }
+
+        return left;
     }
 
 }

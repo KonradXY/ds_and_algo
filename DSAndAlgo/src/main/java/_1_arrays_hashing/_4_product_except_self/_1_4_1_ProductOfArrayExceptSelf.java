@@ -18,11 +18,13 @@ public class _1_4_1_ProductOfArrayExceptSelf {
         int left = 1;
         int right = 1;
 
+        // Build the left product array
         for (int i = 0; i < nums.length; i++) {
             res[i] = left;
             left *= nums[i];
         }
 
+        // Multiply by right product
         for (int i = nums.length-1; i >=0; i--) {
             res[i] *= right;
             right *= nums[i];

@@ -14,23 +14,43 @@ public class _3_PermutationInString {
      */
 
 
-    public boolean checkInclusion(String pattern, String text) {
-        if (pattern.length() > text.length()) return false;
+    public boolean checkInclusion(String s1, String s2) {
+        if (s1.length() > s2.length()) return false;
 
-        int[] freqPat = new int[26];
-        int[] freqTxt = new int[26];
+        int[] freq1 = new int[26];
+        int[] freq2 = new int[26];
 
-        for (char c : pattern.toCharArray()) freqPat[c - 'a']++;
-
-        for (int i = 0; i < pattern.length(); i++) freqTxt[text.charAt(i) - 'a']++;
-
-        for (int i = 0; i < text.length() - pattern.length(); i++) {
-            if (Arrays.equals(freqTxt, freqPat)) return true;
-            freqTxt[text.charAt(i + pattern.length()) - 'a']++;
-            freqTxt[text.charAt(i) - 'a']--;
+        // Build frequency for s1
+        for (char c : s1.toCharArray()) {
+            freq1[c - 'a']++;
         }
-        return Arrays.equals(freqTxt, freqPat);
+
+        int window = s1.length();
+
+        // Build initial window in s2
+        for (int i = 0; i < window; i++) {
+            freq2[s2.charAt(i) - 'a']++;
+        }
+
+        // Check first window
+        if (Arrays.equals(freq1, freq2)) return true;
+
+        // Slide window across s2
+        for (int i = window; i < s2.length(); i++) {
+            // Include new char
+            freq2[s2.charAt(i) - 'a']++;
+
+            // Remove old char
+            freq2[s2.charAt(i - window) - 'a']--;
+
+            // Check match
+            if (Arrays.equals(freq1, freq2)) return true;
+        }
+
+        return false;
     }
+
+    // Helper to compare two frequency arrays
 
 
     public boolean isPermutation(String pattern, String text) {
